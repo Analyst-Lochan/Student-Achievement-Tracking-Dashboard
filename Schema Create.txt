@@ -1,0 +1,90 @@
+CREATE DATABASE OULAD;
+
+
+--Create Tables
+CREATE TABLE studentinfo (
+    id_student INT PRIMARY KEY,
+    gender VARCHAR(10),
+    region VARCHAR(100),
+    highest_education VARCHAR(50),
+    imd_band VARCHAR(20),
+    age_band VARCHAR(20),
+    num_of_prev_attempts INT,
+    studied_credits INT,
+    disability VARCHAR(10),
+    final_result VARCHAR(20)
+);
+
+
+CREATE TABLE assessment (
+    id_assessment INT PRIMARY KEY,
+    code_module VARCHAR(20),
+    code_presentation VARCHAR(50),
+    assessment_type VARCHAR(50),
+    date DATE,
+    weight INT
+);
+
+CREATE TABLE courses (
+    code_module VARCHAR(50),
+    code_presentation VARCHAR(50),
+    module_presentation_length INT,
+    PRIMARY KEY (code_module, code_presentation)
+);
+
+CREATE TABLE studentRegistration (
+    id_student INT,
+    code_module VARCHAR(50),
+    code_presentation VARCHAR(50),
+    date_registration DATE,
+    date_unregistration DATE,
+    PRIMARY KEY (id_student, code_module, code_presentation)
+);
+
+--Insert Data
+EXEC sp_configure 'show advanced options', 1;
+RECONFIGURE;
+
+EXEC sp_configure 'Ad Hoc Distributed Queries', 1;
+RECONFIGURE;
+
+--Insert Data
+BULK INSERT studentinfo
+FROM 'C:\Users\dell\Downloads\anonymisedData\studentinfo.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',
+    TABLOCK
+);
+
+BULK INSERT assessment
+FROM 'C:\Users\dell\Downloads\anonymisedData\assessments.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',
+    TABLOCK
+);
+
+BULK INSERT courses
+FROM 'C:\Users\dell\Downloads\anonymisedData\courses.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',
+    TABLOCK
+);
+
+BULK INSERT studentRegistration
+FROM 'C:\Users\dell\Downloads\anonymisedData\studentRegistration.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',
+    TABLOCK
+);
