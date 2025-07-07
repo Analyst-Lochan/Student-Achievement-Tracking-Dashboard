@@ -1,4 +1,4 @@
-# 🎓 OULAD SQL Project – Student Performance Tracking System
+# 🎓 OULAD SQL Project – Student Achievement Tracking System
 
 This project is based on the **Open University Learning Analytics Dataset (OULAD)**, which is openly available for educational use.
 
